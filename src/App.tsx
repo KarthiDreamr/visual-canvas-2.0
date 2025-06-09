@@ -45,7 +45,6 @@ function App() {
       {/* Main Content */}
       <Canvas
         settings={settings}
-        textElements={textElements}
         onTextChange={handleTextChange}
         currentText={currentText}
       />

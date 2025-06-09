@@ -35,25 +35,22 @@ export const useCanvas = () => {
     const canvasSize = tokenCount * settings.pixelSize;
     ctx.font = `normal ${fontSize}px system-ui, -apple-system, sans-serif`;
     
-    const words = text.split(' ');
     let line = '';
-    let lineCount = 0;
+    let lineCount = 1;
     const lineHeight = fontSize * 1.1;
     const maxWidth = canvasSize - 4; // 2px padding on each side
 
-    for (let n = 0; n < words.length; n++) {
-      const testLine = line + words[n] + ' ';
+    for (const char of text) {
+      const testLine = line + char;
       const metrics = ctx.measureText(testLine);
-      const testWidth = metrics.width;
       
-      if (testWidth > maxWidth && n > 0) {
+      if (metrics.width > maxWidth && line.length > 0) {
         lineCount++;
-        line = words[n] + ' ';
+        line = char;
       } else {
         line = testLine;
       }
     }
-    if (line.trim()) lineCount++; // Count the last line
 
     const totalTextHeight = lineCount * lineHeight + 4; // 2px padding top/bottom
     return totalTextHeight > canvasSize;
@@ -61,43 +58,27 @@ export const useCanvas = () => {
 
   const updateSettings = useCallback((newSettings: Partial<CanvasSettings>) => {
     const updatedSettings = { ...settings, ...newSettings };
-    
-    // Check for overflow if token count is being reduced
-    if (newSettings.tokenCount && newSettings.tokenCount < settings.tokenCount) {
-      const textToCheck = currentText || (textElements[0]?.text || '');
-      if (textToCheck.trim()) {
-        const willOverflow = checkTextOverflow(newSettings.tokenCount, textToCheck, updatedSettings.fontSize);
-        if (willOverflow) {
-          setOverflowWarning(`Text will overflow at ${newSettings.tokenCount}×${newSettings.tokenCount} tokens. Clear text or use larger canvas.`);
-          return; // PREVENT the settings change
-        }
+    const textToCheck = currentText || (textElements[0]?.text || '');
+
+    if (textToCheck.trim()) {
+      const willOverflow = checkTextOverflow(updatedSettings.tokenCount, textToCheck, updatedSettings.fontSize);
+      if (willOverflow) {
+        setOverflowWarning('Warning: Text will overflow vertically and may be cropped.');
+      } else {
+        setOverflowWarning(null);
       }
+    } else {
+      setOverflowWarning(null);
     }
     
-    // Check for overflow if font size is being increased
-    if (newSettings.fontSize && newSettings.fontSize > settings.fontSize) {
-      const textToCheck = currentText || (textElements[0]?.text || '');
-      if (textToCheck.trim()) {
-        const willOverflow = checkTextOverflow(updatedSettings.tokenCount, textToCheck, newSettings.fontSize);
-        if (willOverflow) {
-          setOverflowWarning(`Text will overflow with ${newSettings.fontSize}px font. Reduce font size or use larger canvas.`);
-          return; // PREVENT the settings change
-        }
-      }
-    }
-    
-    // Clear any existing overflow warning if change is allowed
-    setOverflowWarning(null);
     setSettings(updatedSettings);
   }, [settings, currentText, textElements, checkTextOverflow]);
 
   const handleTextChange = useCallback((text: string) => {
-    // Check if new text will overflow current canvas
     if (text.trim()) {
       const willOverflow = checkTextOverflow(settings.tokenCount, text, settings.fontSize);
       if (willOverflow) {
-        setOverflowWarning(`Text too large for ${settings.tokenCount}×${settings.tokenCount} canvas. Increase canvas size or reduce text.`);
-        return; // PREVENT the text change - don't update currentText
+        setOverflowWarning('Warning: Text will overflow vertically and may be cropped.');
       } else {
         setOverflowWarning(null);
       }
@@ -147,28 +128,26 @@ export const useCanvas = () => {
     ctx.fillRect(0, 0, canvasSize, canvasSize);
 
     // Draw text if exists
-    if (textElements.length > 0) {
-      const element = textElements[0];
-      ctx.fillStyle = element.color;
-      ctx.font = `${element.fontWeight} ${element.fontSize}px system-ui, -apple-system, sans-serif`;
+    if (currentText.trim()) {
+      ctx.fillStyle = '#000000';
+      ctx.font = `normal ${settings.fontSize}px system-ui, -apple-system, sans-serif`;
       ctx.textAlign = 'left';
       ctx.textBaseline = 'top';
       
-      // Word wrap with minimal padding
-      const words = element.text.split(' ');
+      // Character wrap with minimal padding
       let line = '';
       let y = 2;
-      const lineHeight = element.fontSize * 1.1; // Tighter line spacing
+      const lineHeight = settings.fontSize * 1.1; // Tighter line spacing
       const maxWidth = canvasSize - 4; // Only 2px padding total
 
-      for (let n = 0; n < words.length; n++) {
-        const testLine = line + words[n] + ' ';
+      for (const char of currentText) {
+        const testLine = line + char;
         const metrics = ctx.measureText(testLine);
         const testWidth = metrics.width;
         
-        if (testWidth > maxWidth && n > 0) {
+        if (testWidth > maxWidth && line.length > 0) {
           ctx.fillText(line, 2, y);
-          line = words[n] + ' ';
+          line = char;
           y += lineHeight;
         } else {
           line = testLine;
@@ -190,7 +169,7 @@ export const useCanvas = () => {
         URL.revokeObjectURL(url);
       }
     });
-  }, [settings, textElements]);
+  }, [settings, currentText]);
 
   const exportAsData = useCallback(() => {
     const data = {

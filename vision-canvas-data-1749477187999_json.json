@@ -1,0 +1,20 @@
+{
+  "settings": {
+    "tokenCount": 8,
+    "pixelSize": 32,
+    "fontSize": 16
+  },
+  "textElements": [
+    {
+      "id": "main-text",
+      "text": "how to do it ?",
+      "x": 2,
+      "y": 2,
+      "fontSize": 16,
+      "color": "#000000",
+      "fontWeight": "normal"
+    }
+  ],
+  "currentText": "how to do it ?",
+  "exportedAt": "2025-06-09T13:53:07.999Z"
+}

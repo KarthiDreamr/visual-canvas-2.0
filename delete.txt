@@ -1,0 +1,43 @@
+Metadata of test-json
+
+The data shown is all the metadata we could automatically extract from your file. It may be neither complete nor adequate. Metadata could have been changed or deleted in the past. Please be aware that the metadata is provided without liability.
+
+ Checksum: 91f9d9d440573766d076b43e50098107
+ Filename: test-json.png
+ Filesize: 30 kB
+ Filetype: PNG
+ Filetypeextension: png
+ Mimetype: image/png
+ Imagewidth: 192
+ Imageheight: 192
+ Bitdepth: 8
+ Colortype: RGB with Alpha
+ Compression: Deflate/Inflate
+ Filter: Adaptive
+ Interlace: Noninterlaced
+ Srgbrendering: Perceptual
+ Warning: [minor] Text/EXIF chunk(s) found after PNG IDAT (may be ignored by some readers)
+ Vision-canvas-data: {
+  "settings": {
+    "tokenCount": 6,
+    "pixelSize": 32,
+    "fontSize": 8
+  },
+  "textElements": [
+    {
+      "id": "main-text",
+      "text": "helloM.a:t^a]y'a[r,i=s|h!o:y#a#T^o>v.u_t'i_:~S}o>m<a/j)i'o]l,o*j!i{a)n#a|m+u)u'n{d[o{w!a$M!l,i]m[a[V'e+s|u_v{i^u&s@i!l~i\"k:u$b!a,i{n/i~m]a:e>n'e;o,m'w.a{f<a@k=a>k_w:a*m=i_a}l@i_k#o]y}a[n_y'u^k,l%i:a+a+m;b:a^y@o-y)a$t]a)a@t;h<i@r(i'k|w}a+k!i_a#s^i~k<i&k]u>b%w)a#c;h]e(m*b?a%y{a?m~a'g|m!a=n$a/s{h/u%g.h*u<l;i;z.a,v'o_l>k_e'n|o+.<U]w]e$k-a$j[i~w^a~K{i~f_a.a=c^h?a[N&y}u@k=l:i}a?:{W:e#k-a#v*i)f{a,a)v@y-a:n{y;u-k#l}i^a%k]w>a<k)i^n^a_c#h%a&k\"u#t:o^s~h_a+k^u>z-u>n'g,u}k^a.v!o'l;k+e@n]o/i_l/i+k[u/h:a(k_i:k&i{s&h+a\"k%w<a<m^b>a/n)g,u,v.u=y,a+m~l.i(p@u/k<o*h#a,u,t<a]h-i\"r_i-m=o,j;a,k|w:a%m+o[j%a|c|h?e-m+b-a>y<a/m!a+g-m}a)n*a[m\"i:a\"m%b\"a-i,n'a*y~o!z@u{n.g!u=k{a#.]U#p?a+s?u%a?j$i:U.n.o!a%t_h/i:b}i{t>i)s;h&w/a\":?L$i'p|u]a@v+i?f#a$a/v;y~a.n\"y=u!k%l[i&a}k.w>a_n~j<i&a(i)n<a!y!o'd$h=i%b!i<t&i_w?a!i^l)i#k*u@u^n[d;a.s<h_i:n|i{k:i|z*o%l:a#k*u#t(o?s=h.a]n?a?j#o!t>o_i*l/i=k@u;y=e]y!u^s+h{a!m(i;a+m!b[a%i{n:a}y:o#z%u%n{g/u+k#a+n_a]k)u'w$a^s.h]a%t(e!n>a-m@t~i[r$i!r|i]k>o|w\"a>m!a/g)m=a,,#k'u-i>g/a<m;i%c~h]a@k{a{t$o$y*a)a)s\"i<l=i)y}a*v&o|l!k{e]n/o}.,F)u%a%t^i@l%i~a,S<h:u[g.h{u$l_i$y:a_V=o#l-k)e.n=o<:&B|a<a?d}a-y;a)m$l&i*p{u]k?o_,)f~u/a[t_i,l;i[a-k_w\"a-k:a&r;i)b<u@M=l]i<m%a<V^e_s[u^v<i<u.s]k)w)a~d~a~l/i@l$i_z-a&s#h(u+g$h|u$l_i)z_a$v'o%l{k%e-n@o=z=i\"l(i=z|o=b~e;z$w|a$t_e?n|a},~i?k<i!w<a[n!i!p\"a-m(o{j;a=n<a\"s@h?u_g}h'u^l=i&z:a}m@t(e.t)e(m,e<k@o:,,u>t.o<a[j>i?w)a[g(e)s<i*n:a%m|w-a,k>o^w&a,l&a$v?a<,)k#u&a^n\"g$u/k'a>k)w}a=m(a{j@i@v@u~,^n\"a\"m<t|i]r,i_r=i}k<o{w/a@p<y{r@o,c{l&a^s~t,i$c!.[K)u%w^a!n<a|m<i$p%a'n?g%o\"y^a]u=o:k@o+a~j'i#n\"a=h#u@d/u;m(a#z>a,d=h+a]r,u#r+a.t^a$y!a@r_i}k^w<a&w_a|t=u'w}a'l[i>o'k*a/r(i{b,u?..U)t!a&f*i=t}i]w$a-K}i>s-a/y?a#n>s\"i>:-F_a]n!y<a=u_t{a$f{i_t]i,w$a\"k*i&n}a=k)a^b]l!a.,/w#a%k'a@t.i!,$n^a&b#a<a,d:a.y?a,k{u*l_i$p#u?k+a:i^l-i\"k&u)e;l<e^w}a&a]t(h>a>r{i_n<a$k'u&b@o[r=e:s|h:a,m/b/i}n<u;y^a*m/a=t+u@m\"i]z-i!y~a)s[i(k?u@z/i&j~a'z'o=.:U-r<a>t,i[b{u&w;a}K=i<m}a/t#a$i}f(a[:=K$u;r<a:t_i|b}u'n}a,m?a'm,l!a=k?a,z)a#k:i_m!a.t(a]i;f'a[i'l*i@k'u{h{a^k:i[k=i@s_h~a[u[e?n+d*e)s~h(a*j]i(s/a$l.a.m|a+n*a~u\"s,i/m}a^m{i(z/i;m*a$d(h#u|b/u=t)i:w;a:m=a)t]a^t@i$z/o~y_o:y-o/t;e{y<a=n!a[y}o{w)e<z^a\"k@u[t.o+k%e/a:.",
+      "x": 2,
+      "y": 2,
+      "fontSize": 8,
+      "color": "#000000",
+      "fontWeight": "normal"
+    }
+  ],
+  "currentText": "helloM.a:t^a]y'a[r,i=s|h!o:y#a#T^o>v.u_t'i_:~S}o>m<a/j)i'o]l,o*j!i{a)n#a|m+u)u'n{d[o{w!a$M!l,i]m[a[V'e+s|u_v{i^u&s@i!l~i\"k:u$b!a,i{n/i~m]a:e>n'e;o,m'w.a{f<a@k=a>k_w:a*m=i_a}l@i_k#o]y}a[n_y'u^k,l%i:a+a+m;b:a^y@o-y)a$t]a)a@t;h<i@r(i'k|w}a+k!i_a#s^i~k<i&k]u>b%w)a#c;h]e(m*b?a%y{a?m~a'g|m!a=n$a/s{h/u%g.h*u<l;i;z.a,v'o_l>k_e'n|o+.<U]w]e$k-a$j[i~w^a~K{i~f_a.a=c^h?a[N&y}u@k=l:i}a?:{W:e#k-a#v*i)f{a,a)v@y-a:n{y;u-k#l}i^a%k]w>a<k)i^n^a_c#h%a&k\"u#t:o^s~h_a+k^u>z-u>n'g,u}k^a.v!o'l;k+e@n]o/i_l/i+k[u/h:a(k_i:k&i{s&h+a\"k%w<a<m^b>a/n)g,u,v.u=y,a+m~l.i(p@u/k<o*h#a,u,t<a]h-i\"r_i-m=o,j;a,k|w:a%m+o[j%a|c|h?e-m+b-a>y<a/m!a+g-m}a)n*a[m\"i:a\"m%b\"a-i,n'a*y~o!z@u{n.g!u=k{a#.]U#p?a+s?u%a?j$i:U.n.o!a%t_h/i:b}i{t>i)s;h&w/a\":?L$i'p|u]a@v+i?f#a$a/v;y~a.n\"y=u!k%l[i&a}k.w>a_n~j<i&a(i)n<a!y!o'd$h=i%b!i<t&i_w?a!i^l)i#k*u@u^n[d;a.s<h_i:n|i{k:i|z*o%l:a#k*u#t(o?s=h.a]n?a?j#o!t>o_i*l/i=k@u;y=e]y!u^s+h{a!m(i;a+m!b[a%i{n:a}y:o#z%u%n{g/u+k#a+n_a]k)u'w$a^s.h]a%t(e!n>a-m@t~i[r$i!r|i]k>o|w\"a>m!a/g)m=a,,#k'u-i>g/a<m;i%c~h]a@k{a{t$o$y*a)a)s\"i<l=i)y}a*v&o|l!k{e]n/o}.,F)u%a%t^i@l%i~a,S<h:u[g.h{u$l_i$y:a_V=o#l-k)e.n=o<:&B|a<a?d}a-y;a)m$l&i*p{u]k?o_,)f~u/a[t_i,l;i[a-k_w\"a-k:a&r;i)b<u@M=l]i<m%a<V^e_s[u^v<i<u.s]k)w)a~d~a~l/i@l$i_z-a&s#h(u+g$h|u$l_i)z_a$v'o%l{k%e-n@o=z=i\"l(i=z|o=b~e;z$w|a$t_e?n|a},~i?k<i!w<a[n!i!p\"a-m(o{j;a=n<a\"s@h?u_g}h'u^l=i&z:a}m@t(e.t)e(m,e<k@o:,,u>t.o<a[j>i?w)a[g(e)s<i*n:a%m|w-a,k>o^w&a,l&a$v?a<,)k#u&a^n\"g$u/k'a>k)w}a=m(a{j@i@v@u~,^n\"a\"m<t|i]r,i_r=i}k<o{w/a@p<y{r@o,c{l&a^s~t,i$c!.[K)u%w^a!n<a|m<i$p%a'n?g%o\"y^a]u=o:k@o+a~j'i#n\"a=h#u@d/u;m(a#z>a,d=h+a]r,u#r+a.t^a$y!a@r_i}k^w<a&w_a|t=u'w}a'l[i>o'k*a/r(i{b,u?..U)t!a&f*i=t}i]w$a-K}i>s-a/y?a#n>s\"i>:-F_a]n!y<a=u_t{a$f{i_t]i,w$a\"k*i&n}a=k)a^b]l!a.,/w#a%k'a@t.i!,$n^a&b#a<a,d:a.y?a,k{u*l_i$p#u?k+a:i^l-i\"k&u)e;l<e^w}a&a]t(h>a>r{i_n<a$k'u&b@o[r=e:s|h:a,m/b/i}n<u;y^a*m/a=t+u@m\"i]z-i!y~a)s[i(k?u@z/i&j~a'z'o=.:U-r<a>t,i[b{u&w;a}K=i<m}a/t#a$i}f(a[:=K$u;r<a:t_i|b}u'n}a,m?a'm,l!a=k?a,z)a#k:i_m!a.t(a]i;f'a[i'l*i@k'u{h{a^k:i[k=i@s_h~a[u[e?n+d*e)s~h(a*j]i(s/a$l.a.m|a+n*a~u\"s,i/m}a^m{i(z/i;m*a$d(h#u|b/u=t)i:w;a:m=a)t]a^t@i$z/o~y_o:y-o/t;e{y<a=n!a[y}o{w)e<z^a\"k@u[t.o+k%e/a:.",
+  "exportedAt": "2025-06-09T14:07:39.573Z"
+}
+ Imagesize: 192x192
+ Megapixels: 0.037
+ Category: image
+ Raw Header: 89 50 4E 47 0D 0A 1A 0A 00 00 00 0D 49 48 44 52 00 00 00 C0 00 00 00 C0 08 06 00 00 00 52 DC 6C 07 00 00 00 01 73 52 47 42 00 AE CE 1C E9 00 00 20 00 49 44 41 54 78 5E ED DD 05 90 24 4D 6E 05 E0 3E 33 33 DB 67 66 66 A6 DF F6 99 99 99 99 99 99 99 99 99 CF CC CC F6 99 99 99 99 99 CE F1 55 F8 4D 68 B5 99 55 D5 3D 3D 0B F7 4F 46 6C EC EE 4C 77 55 82 A4 94 DE 4B 29 EF F3 C0 07 3E F0 81

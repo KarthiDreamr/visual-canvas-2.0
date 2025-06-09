@@ -1,5 +1,29 @@
 import { useState, useCallback, useEffect } from 'react';
 import { CanvasSettings, TextElement } from '../types';
+import pako from 'pako';
+import CRC32 from 'crc-32';
+
+function createChunk(type: string, data: Uint8Array): Uint8Array {
+  const typeBytes = new TextEncoder().encode(type);
+  const chunkData = new Uint8Array(typeBytes.length + data.length);
+  chunkData.set(typeBytes);
+  chunkData.set(data, typeBytes.length);
+
+  const crc = CRC32.buf(chunkData) >>> 0;
+  const crcBytes = new Uint8Array(4);
+  new DataView(crcBytes.buffer).setUint32(0, crc);
+
+  const length = data.length;
+  const lengthBytes = new Uint8Array(4);
+  new DataView(lengthBytes.buffer).setUint32(0, length);
+
+  const chunk = new Uint8Array(12 + data.length);
+  chunk.set(lengthBytes);
+  chunk.set(chunkData, 4);
+  chunk.set(crcBytes, 8 + data.length);
+
+  return chunk;
+}
 
 export const useCanvas = () => {
   const [settings, setSettings] = useState<CanvasSettings>({
@@ -114,7 +138,7 @@ export const useCanvas = () => {
     setOverflowWarning(null);
   }, []);
 
-  const exportAsImage = useCallback(() => {
+  const exportAsImageWithData = useCallback(() => {
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
@@ -156,20 +180,71 @@ export const useCanvas = () => {
       ctx.fillText(line, 2, y);
     }
 
-    // Download
+    // Get JSON data
+    const data = {
+      settings,
+      textElements,
+      currentText,
+      exportedAt: new Date().toISOString(),
+    };
+    const dataStr = JSON.stringify(data, null, 2);
+
     canvas.toBlob((blob) => {
       if (blob) {
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = `vision-canvas-${settings.tokenCount}x${settings.tokenCount}-${Date.now()}.png`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        URL.revokeObjectURL(url);
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          if (event.target && event.target.result) {
+            const arrayBuffer = event.target.result as ArrayBuffer;
+            const uint8Array = new Uint8Array(arrayBuffer);
+            
+            // Embed data into PNG
+            const keyword = 'vision-canvas-data';
+            const keywordBytes = new TextEncoder().encode(keyword);
+            const compressedData = pako.deflate(dataStr, { level: 9 });
+            
+            const zTXtData = new Uint8Array(keywordBytes.length + 2 + compressedData.length);
+            zTXtData.set(keywordBytes);
+            zTXtData.set([0, 0], keywordBytes.length); // Null separator and compression method
+            zTXtData.set(compressedData, keywordBytes.length + 2);
+
+            const textChunk = createChunk('zTXt', zTXtData);
+            
+            // Find the position of the IEND chunk
+            let iendPos = -1;
+            for (let i = uint8Array.length - 12; i >= 0; i--) {
+              if (
+                uint8Array[i+4] === 73 && // I
+                uint8Array[i+5] === 69 && // E
+                uint8Array[i+6] === 78 && // N
+                uint8Array[i+7] === 68    // D
+              ) {
+                iendPos = i;
+                break;
+              }
+            }
+            
+            if (iendPos !== -1) {
+              const newPng = new Uint8Array(uint8Array.length + textChunk.length);
+              newPng.set(uint8Array.slice(0, iendPos));
+              newPng.set(textChunk, iendPos);
+              newPng.set(uint8Array.slice(iendPos), iendPos + textChunk.length);
+
+              const newBlob = new Blob([newPng], { type: 'image/png' });
+              const url = URL.createObjectURL(newBlob);
+              const link = document.createElement('a');
+              link.href = url;
+              link.download = `vision-canvas-${settings.tokenCount}x${settings.tokenCount}-${Date.now()}.png`;
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+              URL.revokeObjectURL(url);
+            }
+          }
+        };
+        reader.readAsArrayBuffer(blob);
       }
     });
-  }, [settings, currentText]);
+  }, [settings, currentText, textElements]);
 
   const exportAsData = useCallback(() => {
     const data = {
@@ -200,7 +275,7 @@ export const useCanvas = () => {
     updateSettings,
     handleTextChange,
     clearCanvas,
-    exportAsImage,
+    exportAsImage: exportAsImageWithData,
     exportAsData,
   };
 };

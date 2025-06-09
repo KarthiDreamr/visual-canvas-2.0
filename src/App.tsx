@@ -26,7 +26,7 @@ function App() {
               <div className="w-4 h-4 bg-white rounded-sm opacity-90"></div>
             </div>
             <div>
-              <h1 className="text-xl font-bold text-white">Vision Canvas</h1>
+              <h1 className="text-xl font-bold text-white">Vision Model Text Input Generator</h1>
               <p className="text-sm text-gray-300">Generate images for your local LLM vision model</p>
             </div>
           </div>

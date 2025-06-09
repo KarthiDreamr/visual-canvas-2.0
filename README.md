@@ -1,6 +1,10 @@
-# Vision Canvas
+# Vision-Model-Text-Input-Generator
 
-Vision Canvas is a simple web application that allows you to generate images with text for your local LLM vision model. You can control the canvas settings, add text, and export the canvas as an image or data.
+Vision-Model-Text-Input-Generator is a simple web application that allows you to generate images with text for your local LLM vision model. You can control the canvas settings, add text, and export the canvas as an image or data.
+
+## Deployed Link
+
+The application is deployed at: [https://vision-model-text-input-generator.vercel.app/](https://vision-model-text-input-generator.vercel.app/)
 
 ## Features
 
@@ -22,11 +26,11 @@ You need to have Node.js and npm (or yarn) installed on your machine.
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/your-username/vision-canvas.git
+   git clone https://github.com/your-username/vision-model-text-input-generator.git
    ```
 2. Navigate to the project directory:
     ```sh
-    cd vision-canvas
+    cd vision-model-text-input-generator
     ```
 3. Install the dependencies:
     ```sh

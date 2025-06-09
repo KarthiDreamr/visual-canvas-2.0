@@ -33,7 +33,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
   };
 
   const handleFontSizeInputChange = (value: string) => {
-    const newSize = Math.max(1, Math.min(72, parseInt(value) || 16));
+    const newSize = Math.max(1, Math.min(72, parseFloat(value) || 16));
     onSettingsChange({ fontSize: newSize });
   };
 
@@ -78,7 +78,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
             </label>
             <div className="flex items-center space-x-2">
               <button
-                onClick={() => handleFontSizeChange(-2)}
+                onClick={() => handleFontSizeChange(-1)}
                 className="p-1 text-gray-300 hover:text-white hover:bg-gray-700 rounded transition-colors"
                 disabled={settings.fontSize <= 1}
               >
@@ -86,6 +86,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
               </button>
               <input
                 type="number"
+                step="0.1"
                 min="1"
                 max="72"
                 value={settings.fontSize}
@@ -93,7 +94,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
                 className="w-16 px-2 py-1 text-center text-sm bg-gray-700 border border-gray-600 text-white rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               <button
-                onClick={() => handleFontSizeChange(2)}
+                onClick={() => handleFontSizeChange(1)}
                 className="p-1 text-gray-300 hover:text-white hover:bg-gray-700 rounded transition-colors"
                 disabled={settings.fontSize >= 72}
               >

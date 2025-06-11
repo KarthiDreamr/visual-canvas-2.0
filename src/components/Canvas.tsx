@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { CanvasSettings } from '../types';
+import { Preview } from './Preview';
 
 interface CanvasProps {
   settings: CanvasSettings;
@@ -14,8 +15,9 @@ export const Canvas: React.FC<CanvasProps> = ({
 }) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   
-  const { tokenCount, pixelSize, fontSize } = settings;
-  const canvasSize = tokenCount * pixelSize;
+  const { widthTokens, heightTokens, pixelSize, fontSize } = settings;
+  const canvasWidth = widthTokens * pixelSize;
+  const canvasHeight = heightTokens * pixelSize;
 
   // Focus textarea when component mounts
   useEffect(() => {
@@ -29,7 +31,7 @@ export const Canvas: React.FC<CanvasProps> = ({
   };
 
   return (
-    <div className="flex-1 flex items-center justify-center bg-gray-900 p-4">
+    <div className="flex-1 flex flex-col items-center justify-start bg-gray-900 p-4 gap-4">
       <div className="relative">
         <textarea
           ref={textareaRef}
@@ -37,8 +39,8 @@ export const Canvas: React.FC<CanvasProps> = ({
           onChange={handleTextareaChange}
           className="bg-white text-black border border-gray-600 outline-none resize-none overflow-auto"
           style={{
-            width: `${canvasSize}px`,
-            height: `${canvasSize}px`,
+            width: `${canvasWidth}px`,
+            height: `${canvasHeight}px`,
             maxWidth: '600px',
             maxHeight: '600px',
             fontSize: `${fontSize}px`,
@@ -48,9 +50,14 @@ export const Canvas: React.FC<CanvasProps> = ({
             padding: '2px',
             margin: 0,
             zIndex: 10,
+            wordBreak: settings.charWrap ? 'break-all' : 'normal',
           }}
           autoFocus
         />
+      </div>
+      <div>
+        <h2 className="text-lg font-bold text-white text-center mb-2">Preview</h2>
+        <Preview settings={settings} currentText={currentText} />
       </div>
     </div>
   );

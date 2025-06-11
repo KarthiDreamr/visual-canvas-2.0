@@ -27,9 +27,11 @@ function createChunk(type: string, data: Uint8Array): Uint8Array {
 
 export const useCanvas = () => {
   const [settings, setSettings] = useState<CanvasSettings>({
-    tokenCount: 1,
+    widthTokens: 4,
+    heightTokens: 4,
     pixelSize: 32,
     fontSize: 8,
+    charWrap: false,
   });
   
   const [textElements, setTextElements] = useState<TextElement[]>([]);
@@ -48,7 +50,7 @@ export const useCanvas = () => {
   }, [overflowWarning]);
 
   // Check if text will overflow when canvas size changes or text is added
-  const checkTextOverflow = useCallback((tokenCount: number, text: string, fontSize: number) => {
+  const checkTextOverflow = useCallback((widthTokens: number, heightTokens: number, text: string, fontSize: number, charWrap: boolean) => {
     if (!text.trim()) return false;
 
     // Create a temporary canvas to measure text
@@ -56,28 +58,44 @@ export const useCanvas = () => {
     const ctx = tempCanvas.getContext('2d');
     if (!ctx) return false;
 
-    const canvasSize = tokenCount * settings.pixelSize;
+    const canvasWidth = widthTokens * settings.pixelSize;
+    const canvasHeight = heightTokens * settings.pixelSize;
     ctx.font = `normal ${fontSize}px system-ui, -apple-system, sans-serif`;
     
     let line = '';
     let lineCount = 1;
     const lineHeight = fontSize * 1.1;
-    const maxWidth = canvasSize - 4; // 2px padding on each side
+    const maxWidth = canvasWidth - 4; // 2px padding on each side
 
-    for (const char of text) {
-      const testLine = line + char;
-      const metrics = ctx.measureText(testLine);
-      
-      if (metrics.width > maxWidth && line.length > 0) {
-        lineCount++;
-        line = char;
-      } else {
-        line = testLine;
+    if (charWrap) {
+      for (const char of text) {
+        const testLine = line + char;
+        const metrics = ctx.measureText(testLine);
+        
+        if (metrics.width > maxWidth && line.length > 0) {
+          lineCount++;
+          line = char;
+        } else {
+          line = testLine;
+        }
+      }
+    } else {
+      const words = text.split(' ');
+      for (const word of words) {
+        const testLine = line.length > 0 ? `${line} ${word}` : word;
+        const metrics = ctx.measureText(testLine);
+
+        if (metrics.width > maxWidth && line.length > 0) {
+          lineCount++;
+          line = word;
+        } else {
+          line = testLine;
+        }
       }
     }
 
     const totalTextHeight = lineCount * lineHeight + 4; // 2px padding top/bottom
-    return totalTextHeight > canvasSize;
+    return totalTextHeight > canvasHeight;
   }, [settings.pixelSize]);
 
   const updateSettings = useCallback((newSettings: Partial<CanvasSettings>) => {
@@ -85,7 +103,7 @@ export const useCanvas = () => {
     const textToCheck = currentText || (textElements[0]?.text || '');
 
     if (textToCheck.trim()) {
-      const willOverflow = checkTextOverflow(updatedSettings.tokenCount, textToCheck, updatedSettings.fontSize);
+      const willOverflow = checkTextOverflow(updatedSettings.widthTokens, updatedSettings.heightTokens, textToCheck, updatedSettings.fontSize, updatedSettings.charWrap);
       if (willOverflow) {
         setOverflowWarning('Warning: Text will overflow vertically and may be cropped.');
       } else {
@@ -100,7 +118,7 @@ export const useCanvas = () => {
 
   const handleTextChange = useCallback((text: string) => {
     if (text.trim()) {
-      const willOverflow = checkTextOverflow(settings.tokenCount, text, settings.fontSize);
+      const willOverflow = checkTextOverflow(settings.widthTokens, settings.heightTokens, text, settings.fontSize, settings.charWrap);
       if (willOverflow) {
         setOverflowWarning('Warning: Text will overflow vertically and may be cropped.');
       } else {
@@ -111,7 +129,7 @@ export const useCanvas = () => {
     }
     
     setCurrentText(text);
-  }, [settings.tokenCount, settings.fontSize, checkTextOverflow]);
+  }, [settings.widthTokens, settings.heightTokens, settings.fontSize, settings.charWrap, checkTextOverflow]);
 
   // Auto-save text when currentText changes and is not empty
   useEffect(() => {
@@ -143,13 +161,14 @@ export const useCanvas = () => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    const canvasSize = settings.tokenCount * settings.pixelSize;
-    canvas.width = canvasSize;
-    canvas.height = canvasSize;
+    const canvasWidth = settings.widthTokens * settings.pixelSize;
+    const canvasHeight = settings.heightTokens * settings.pixelSize;
+    canvas.width = canvasWidth;
+    canvas.height = canvasHeight;
 
     // White background
     ctx.fillStyle = '#ffffff';
-    ctx.fillRect(0, 0, canvasSize, canvasSize);
+    ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
     // Draw text if exists
     if (currentText.trim()) {
@@ -162,19 +181,36 @@ export const useCanvas = () => {
       let line = '';
       let y = 2;
       const lineHeight = settings.fontSize * 1.1; // Tighter line spacing
-      const maxWidth = canvasSize - 4; // Only 2px padding total
+      const maxWidth = canvasWidth - 4; // Only 2px padding total
 
-      for (const char of currentText) {
-        const testLine = line + char;
-        const metrics = ctx.measureText(testLine);
-        const testWidth = metrics.width;
-        
-        if (testWidth > maxWidth && line.length > 0) {
-          ctx.fillText(line, 2, y);
-          line = char;
-          y += lineHeight;
-        } else {
-          line = testLine;
+      if (settings.charWrap) {
+        for (const char of currentText) {
+          const testLine = line + char;
+          const metrics = ctx.measureText(testLine);
+          const testWidth = metrics.width;
+          
+          if (testWidth > maxWidth && line.length > 0) {
+            ctx.fillText(line, 2, y);
+            line = char;
+            y += lineHeight;
+          } else {
+            line = testLine;
+          }
+        }
+      } else {
+        const words = currentText.split(' ');
+        for (const word of words) {
+          const testLine = line.length > 0 ? `${line} ${word}` : word;
+          const metrics = ctx.measureText(testLine);
+          const testWidth = metrics.width;
+
+          if (testWidth > maxWidth && line.length > 0) {
+            ctx.fillText(line, 2, y);
+            line = word;
+            y += lineHeight;
+          } else {
+            line = testLine;
+          }
         }
       }
       ctx.fillText(line, 2, y);
@@ -233,7 +269,7 @@ export const useCanvas = () => {
               const url = URL.createObjectURL(newBlob);
               const link = document.createElement('a');
               link.href = url;
-              link.download = `vision-canvas-${settings.tokenCount}x${settings.tokenCount}-${Date.now()}.png`;
+              link.download = `vision-canvas-${settings.widthTokens}x${settings.heightTokens}-${Date.now()}.png`;
               document.body.appendChild(link);
               link.click();
               document.body.removeChild(link);

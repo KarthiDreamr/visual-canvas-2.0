@@ -1,7 +1,9 @@
 export interface CanvasSettings {
-  tokenCount: number;
+  widthTokens: number;
+  heightTokens: number;
   pixelSize: number; // Always 32px
   fontSize: number;
+  charWrap: boolean;
 }
 
 export interface TextElement {

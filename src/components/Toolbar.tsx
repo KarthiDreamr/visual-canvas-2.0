@@ -17,14 +17,24 @@ export const Toolbar: React.FC<ToolbarProps> = ({
   onExportImage,
   onExportData,
 }) => {
-  const handleTokenChange = (delta: number) => {
-    const newCount = Math.max(1, Math.min(32, settings.tokenCount + delta));
-    onSettingsChange({ tokenCount: newCount });
+  const handleWidthTokenChange = (delta: number) => {
+    const newCount = Math.max(1, Math.min(32, settings.widthTokens + delta));
+    onSettingsChange({ widthTokens: newCount });
   };
 
-  const handleTokenInputChange = (value: string) => {
+  const handleWidthTokenInputChange = (value: string) => {
     const newCount = Math.max(1, Math.min(32, parseInt(value) || 1));
-    onSettingsChange({ tokenCount: newCount });
+    onSettingsChange({ widthTokens: newCount });
+  };
+
+  const handleHeightTokenChange = (delta: number) => {
+    const newCount = Math.max(1, Math.min(32, settings.heightTokens + delta));
+    onSettingsChange({ heightTokens: newCount });
+  };
+
+  const handleHeightTokenInputChange = (value: string) => {
+    const newCount = Math.max(1, Math.min(32, parseInt(value) || 1));
+    onSettingsChange({ heightTokens: newCount });
   };
 
   const handleFontSizeChange = (delta: number) => {
@@ -43,12 +53,12 @@ export const Toolbar: React.FC<ToolbarProps> = ({
         <div className="flex items-center space-x-8">
           {/* Token Count Control */}
           <div className="flex items-center space-x-3">
-            <label className="text-sm font-medium text-gray-200">Tokens:</label>
+            <label className="text-sm font-medium text-gray-200">Width Tokens:</label>
             <div className="flex items-center space-x-2">
               <button
-                onClick={() => handleTokenChange(-1)}
+                onClick={() => handleWidthTokenChange(-1)}
                 className="p-1 text-gray-300 hover:text-white hover:bg-gray-700 rounded transition-colors"
-                disabled={settings.tokenCount <= 1}
+                disabled={settings.widthTokens <= 1}
               >
                 <Minus className="w-4 h-4" />
               </button>
@@ -56,17 +66,52 @@ export const Toolbar: React.FC<ToolbarProps> = ({
                 type="number"
                 min="1"
                 max="32"
-                value={settings.tokenCount}
-                onChange={(e) => handleTokenInputChange(e.target.value)}
+                value={settings.widthTokens}
+                onChange={(e) => handleWidthTokenInputChange(e.target.value)}
                 className="w-16 px-2 py-1 text-center text-sm bg-gray-700 border border-gray-600 text-white rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               <button
-                onClick={() => handleTokenChange(1)}
+                onClick={() => handleWidthTokenChange(1)}
                 className="p-1 text-gray-300 hover:text-white hover:bg-gray-700 rounded transition-colors"
-                disabled={settings.tokenCount >= 32}
+                disabled={settings.widthTokens >= 32}
               >
                 <Plus className="w-4 h-4" />
               </button>
+            </div>
+          </div>
+          <div className="flex items-center space-x-3">
+            <label className="text-sm font-medium text-gray-200">Height Tokens:</label>
+            <div className="flex items-center space-x-2">
+              <button
+                onClick={() => handleHeightTokenChange(-1)}
+                className="p-1 text-gray-300 hover:text-white hover:bg-gray-700 rounded transition-colors"
+                disabled={settings.heightTokens <= 1}
+              >
+                <Minus className="w-4 h-4" />
+              </button>
+              <input
+                type="number"
+                min="1"
+                max="32"
+                value={settings.heightTokens}
+                onChange={(e) => handleHeightTokenInputChange(e.target.value)}
+                className="w-16 px-2 py-1 text-center text-sm bg-gray-700 border border-gray-600 text-white rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              <button
+                onClick={() => handleHeightTokenChange(1)}
+                className="p-1 text-gray-300 hover:text-white hover:bg-gray-700 rounded transition-colors"
+                disabled={settings.heightTokens >= 32}
+              >
+                <Plus className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+          <div className="flex items-center space-x-3">
+            <label className="text-sm font-medium text-gray-200">Total Tokens:</label>
+            <div className="flex items-center space-x-2">
+                <div className="px-3 py-2 text-sm bg-gray-700 border border-gray-600 text-white rounded">
+                    {settings.widthTokens * settings.heightTokens}
+                </div>
             </div>
           </div>
 
